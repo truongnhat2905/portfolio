@@ -1,0 +1,2718 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nguyễn Nhật Trường — AI Automation Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --g: #10B981;
+      --o: #F97316;
+      --g10: rgba(16, 185, 129, .10);
+      --g20: rgba(16, 185, 129, .20);
+      --o10: rgba(249, 115, 22, .08);
+      --o20: rgba(249, 115, 22, .18);
+      --ink: #1A1A1A;
+      --ink2: #666;
+      --ink3: #999;
+      --border: #D0D0D0;
+      --border2: #EBEBEB;
+      --bg: #FAFAFA;
+      --bg2: #F4F4F0;
+      --card: #FFF;
+      --r: 12px;
+      --r-sm: 8px;
+      --fh: 'Space Grotesk', sans-serif;
+      --fb: 'Inter', sans-serif;
+      --fm: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      font-family: var(--fb);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      font-size: 14px
+    }
+
+    body.dark {
+      --bg: #0F0F0F;
+      --bg2: #1A1A1A;
+      --card: #161616;
+      --ink: #EDEDEC;
+      --ink2: #888;
+      --ink3: #555;
+      --border: #2A2A2A;
+      --border2: #222;
+      --g10: rgba(16, 185, 129, .12);
+      --o10: rgba(249, 115, 22, .1);
+    }
+
+    /* ── Layout ── */
+    .page {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px 120px
+    }
+
+    section {
+      margin-top: 72px
+    }
+
+    .section-label {
+      font-family: var(--fm);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border2)
+    }
+
+    h2 {
+      font-family: var(--fh);
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 24px
+    }
+
+    /* ── Sticky nav ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border2);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .topbar-left {
+      font-family: var(--fm);
+      font-size: 11px;
+      color: var(--ink3);
+      letter-spacing: .06em
+    }
+
+    .topbar-right {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    .topbar-status {
+      font-family: var(--fm);
+      font-size: 11px;
+      color: var(--g)
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1.75px solid var(--ink);
+      padding: 9px 18px;
+      border-radius: 30px;
+      font-family: var(--fh);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .15s;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--g);
+      color: #fff;
+      border-color: var(--g)
+    }
+
+    .btn-primary:hover {
+      background: #0da872;
+      border-color: #0da872
+    }
+
+    .btn-secondary {
+      background: var(--card);
+      color: var(--ink)
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg2)
+    }
+
+    .btn-sm {
+      padding: 6px 13px;
+      font-size: 12px
+    }
+
+    /* ── Hero Canvas ── */
+    .hero-canvas {
+      position: relative;
+      background: var(--card);
+      border: 1.75px solid var(--ink);
+      border-radius: 16px;
+      background-image: radial-gradient(circle, var(--border2) 1px, transparent 1px);
+      background-size: 24px 24px;
+      padding: 36px 24px 24px;
+      overflow: hidden;
+      margin-top: 32px;
+    }
+
+    .conn-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1
+    }
+
+    .hero-cols {
+      display: flex;
+      gap: 20px;
+      align-items: stretch;
+      position: relative;
+      z-index: 2;
+      min-height: 260px
+    }
+
+    .hero-col-l {
+      flex: 0 0 175px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      justify-content: space-between
+    }
+
+    .hero-col-c {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .hero-col-r {
+      flex: 0 0 195px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      justify-content: space-between
+    }
+
+    .hero-col-links {
+      flex: 0 0 150px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Nodes */
+    .node {
+      background: var(--card);
+      border: 1.75px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px
+    }
+
+    .node-type {
+      font-family: var(--fm);
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 5px
+    }
+
+    .n-in {
+      border-left: 3px solid var(--border)
+    }
+
+    .n-in .nname {
+      font-family: var(--fh);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.2
+    }
+
+    .n-in .ndesc {
+      font-size: 12px;
+      color: var(--ink2);
+      margin-top: 3px;
+      line-height: 1.35
+    }
+
+    .n-center {
+      border: 2px solid var(--ink);
+      padding: 22px 26px;
+      flex: 1
+    }
+
+    .n-center h1 {
+      font-family: var(--fh);
+      font-size: 44px;
+      font-weight: 700;
+      letter-spacing: -.025em;
+      line-height: 1.0;
+      margin-bottom: 8px
+    }
+
+    .n-center .nc-title {
+      font-family: var(--fh);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--g)
+    }
+
+    .n-center .nc-sub {
+      font-size: 13px;
+      color: var(--ink2);
+      margin-top: 2px
+    }
+
+    .n-center .nc-hl {
+      font-size: 13px;
+      color: var(--ink2);
+      margin-top: 12px;
+      line-height: 1.6;
+      max-width: 540px
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap
+    }
+
+    .n-out-g {
+      border-left: 3px solid var(--g);
+      background: var(--g10)
+    }
+
+    .n-out-o {
+      border-left: 3px solid var(--o);
+      background: var(--o10)
+    }
+
+    .n-out-g .nval,
+    .n-out-o .nval {
+      font-family: var(--fh);
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1
+    }
+
+    .n-out-g .nval {
+      color: var(--g)
+    }
+
+    .n-out-o .nval {
+      color: var(--o)
+    }
+
+    .n-out-g .nlbl,
+    .n-out-o .nlbl {
+      font-size: 11px;
+      color: var(--ink2);
+      margin-top: 4px;
+      line-height: 1.35
+    }
+
+    .n-avt {
+      padding: 0;
+      overflow: hidden;
+      border-color: var(--border);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .n-avt img {
+      width: 100%;
+      flex: 1;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      min-height: 0;
+    }
+
+    .n-avt-label {
+      font-family: var(--fm);
+      font-size: 10px;
+      color: var(--ink3);
+      padding: 7px 10px 8px;
+      letter-spacing: .06em;
+      background: var(--card);
+      border-top: 1px solid var(--border2);
+      flex-shrink: 0;
+    }
+
+    .canvas-bar {
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--fm);
+      font-size: 10px;
+      color: var(--ink3);
+      letter-spacing: .06em;
+    }
+
+    .canvas-bar .live {
+      color: var(--g)
+    }
+
+    /* Mobile hero */
+    .hero-mobile {
+      display: none;
+      padding: 20px 0 4px
+    }
+
+    .hero-mobile h1 {
+      font-family: var(--fh);
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.1
+    }
+
+    .hero-mobile .hm-title {
+      font-family: var(--fh);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--g);
+      margin: 8px 0 3px
+    }
+
+    .hero-mobile .hm-sub {
+      font-size: 13px;
+      color: var(--ink2);
+      margin-bottom: 12px
+    }
+
+    .hero-mobile .hm-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--ink2);
+      margin-bottom: 16px
+    }
+
+    /* ── Stats Bar ── */
+    .stats-bar {
+      background: var(--g10);
+      border: 1.5px solid var(--g20);
+      border-radius: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      overflow: hidden;
+    }
+
+    .stat-item {
+      flex: 1 1 140px;
+      padding: 16px 20px;
+      border-right: 1px dashed var(--g20);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .stat-item:last-child {
+      border-right: none
+    }
+
+    .sv {
+      font-family: var(--fm);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--g)
+    }
+
+    .sv.orange {
+      color: var(--o)
+    }
+
+    .sl {
+      font-family: var(--fm);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--ink3)
+    }
+
+    /* ── Projects Grid ── */
+    .proj-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    .proj-card {
+      background: var(--card);
+      border: 1.75px solid var(--border2);
+      border-radius: var(--r);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+      cursor: default;
+    }
+
+    .proj-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, .08);
+      border-color: var(--g)
+    }
+
+    .proj-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px
+    }
+
+    .proj-period {
+      font-family: var(--fm);
+      font-size: 11px;
+      color: var(--ink3)
+    }
+
+    .proj-tags {
+      display: flex;
+      gap: 5px
+    }
+
+    .proj-card h3 {
+      font-family: var(--fh);
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 1.2
+    }
+
+    .proj-tagline {
+      font-size: 12px;
+      color: var(--ink2);
+      margin-top: -4px
+    }
+
+    .proj-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--ink2)
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px
+    }
+
+    .mbox {
+      background: var(--g10);
+      border: 1px solid var(--g20);
+      border-radius: var(--r-sm);
+      padding: 8px 10px
+    }
+
+    .mbox.o {
+      background: var(--o10);
+      border-color: var(--o20)
+    }
+
+    .mv {
+      font-family: var(--fh);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--g);
+      line-height: 1.1
+    }
+
+    .mbox.o .mv {
+      color: var(--o)
+    }
+
+    .ml {
+      font-size: 11px;
+      color: var(--ink2);
+      margin-top: 2px;
+      line-height: 1.3
+    }
+
+    .arch-flow {
+      font-family: var(--fm);
+      font-size: 11px;
+      color: var(--ink2);
+      padding: 8px 10px;
+      background: var(--bg2);
+      border-radius: var(--r-sm);
+      line-height: 1.6;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 2px
+    }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--fm);
+      font-size: 11px;
+      font-weight: 500;
+      border: 1.5px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--card);
+      white-space: nowrap;
+    }
+
+    .bg {
+      background: var(--g);
+      color: #fff;
+      border-color: var(--g)
+    }
+
+    .bg-dim {
+      background: var(--g10);
+      color: #0c6e4a;
+      border-color: var(--g20)
+    }
+
+    .bo {
+      background: var(--o);
+      color: #fff;
+      border-color: var(--o)
+    }
+
+    .bo-dim {
+      background: var(--o10);
+      color: #b84e08;
+      border-color: var(--o20)
+    }
+
+    .btag {
+      font-family: var(--fb);
+      font-size: 11px;
+      background: var(--bg2);
+      border: none;
+      border-radius: 20px;
+      padding: 2px 9px;
+      color: var(--ink2)
+    }
+
+    body.dark .bg-dim {
+      color: #4ade80
+    }
+
+    body.dark .bo-dim {
+      color: #fb923c
+    }
+
+    /* ── Cô Giấy Production Flow (v2) ── */
+    .cg-section-wrap {
+      position: relative;
+    }
+
+    .cg-section-sub {
+      font-size: 14px;
+      color: var(--ink2);
+      margin-top: -12px;
+      margin-bottom: 20px;
+      max-width: 680px;
+    }
+
+    .cg-outer {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .cg-space {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      height: 620px;
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(16, 185, 129, 0.12) 1px, transparent 0);
+      background-size: 22px 22px;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      box-shadow: 0 0 0 1.5px rgba(0, 0, 0, 0.08), 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    body.dark .cg-space {
+      box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.08), 0 8px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .cg-space.grabbing {
+      cursor: grabbing;
+    }
+
+    /* Transform wrapper — pan/zoom target */
+    .cg-viewport {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: 0 0;
+      will-change: transform;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 0 1.5px rgba(0, 0, 0, 0.18), 0 6px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark .cg-viewport {
+      box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.12), 0 6px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Main inner layout: assets col | groups area */
+    .cg-space-inner {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+      align-items: flex-start;
+      padding-bottom: 10px;
+    }
+
+    /* Assets column */
+    .cg-assets-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-shrink: 0;
+      width: 64px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Groups area: 2 rows × 3 cols */
+    .cg-groups-area {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      grid-template-rows: auto auto;
+      gap: 20px 28px;
+      align-items: start;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Individual group block: SB frames top + video bottom */
+    .cg-group-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .cg-group-frames {
+      display: flex;
+      flex-direction: row;
+      gap: 6px;
+      margin-bottom: 0;
+    }
+
+    .cg-group-video {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    /* Connector lines group (drawn via SVG, but we reserve space visually) */
+    .cg-group-connector {
+      width: 100%;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--o);
+      font-size: 14px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* Toolbar */
+    .cg-toolbar {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: flex;
+      gap: 4px;
+      z-index: 10;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .cg-tb-btn {
+      width: 28px;
+      height: 28px;
+      border: none;
+      background: transparent;
+      color: var(--ink);
+      font-family: var(--fm);
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .cg-tb-btn:hover {
+      background: var(--g10);
+      color: var(--g);
+    }
+
+    .cg-tb-zoom {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      z-index: 10;
+      font-family: var(--fm);
+      font-size: 10px;
+      color: var(--ink2);
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 3px 8px;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    .cg-col-label {
+      font-family: var(--fm);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--ink2);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .cg-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Asset nodes */
+    .cg-asset-node {
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .cg-asset-node:hover {
+      transform: translateY(-2px);
+      border-color: var(--g);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.18);
+    }
+
+    .cg-asset-img {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      display: block;
+      background: #f3f3f3;
+    }
+
+    .cg-asset-label {
+      padding: 6px 8px;
+      font-family: var(--fm);
+      font-size: 10px;
+      color: var(--ink);
+      text-align: center;
+      border-top: 1px solid var(--line);
+      background: var(--card);
+    }
+
+    /* Storyboard nodes — fixed small size in group rows */
+    .cg-sb-node {
+      position: relative;
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      border-radius: 7px;
+      overflow: hidden;
+      cursor: pointer;
+      width: 64px;
+      flex-shrink: 0;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .cg-sb-node:hover {
+      transform: scale(1.06);
+      border-color: var(--o);
+      z-index: 5;
+    }
+
+    .cg-sb-img {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      display: block;
+      background: #f3f3f3;
+    }
+
+    .cg-sb-num {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      font-family: var(--fm);
+      font-size: 9px;
+      padding: 2px 5px;
+      border-radius: 3px;
+      line-height: 1;
+    }
+
+    .cg-sb-node[data-grp="1"] {
+      box-shadow: inset 0 0 0 2px rgba(16, 185, 129, 0.22);
+    }
+
+    .cg-sb-node[data-grp="2"] {
+      box-shadow: inset 0 0 0 2px rgba(249, 115, 22, 0.22);
+    }
+
+    .cg-sb-node[data-grp="3"] {
+      box-shadow: inset 0 0 0 2px rgba(168, 85, 247, 0.22);
+    }
+
+    .cg-sb-node[data-grp="4"] {
+      box-shadow: inset 0 0 0 2px rgba(236, 72, 153, 0.22);
+    }
+
+    .cg-sb-node[data-grp="5"] {
+      box-shadow: inset 0 0 0 2px rgba(234, 179, 8, 0.22);
+    }
+
+    .cg-sb-node[data-grp="6"] {
+      box-shadow: inset 0 0 0 2px rgba(34, 197, 94, 0.32);
+    }
+
+    /* Video component nodes */
+    .cg-video-node {
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .cg-video-node:hover {
+      border-color: var(--o);
+      box-shadow: 0 4px 14px rgba(249, 115, 22, 0.22);
+    }
+
+    .cg-video-node.playing {
+      border-color: var(--o);
+      box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.35);
+    }
+
+    .cg-video-node {
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    .cg-video-node video {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+
+    .cg-video-meta {
+      padding: 6px 8px;
+      border-top: 1px solid var(--line);
+      background: var(--card);
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--fm);
+      font-size: 9px;
+      color: var(--ink2);
+    }
+
+    .cg-video-meta strong {
+      color: var(--o);
+      font-weight: 600;
+    }
+
+    .cg-play-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .cg-video-node.playing .cg-play-badge {
+      opacity: 0;
+    }
+
+    /* SVG edge overlay — lives inside viewport, covers .cg-space-inner */
+    .cg-svg-overlay {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      pointer-events: none;
+      z-index: 1;
+      overflow: visible;
+    }
+
+    .cg-edge {
+      fill: none;
+      stroke-linecap: round;
+    }
+
+    /* Final video (outside space) */
+    .cg-final-wrap {
+      position: sticky;
+      top: 72px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cg-final-label {
+      font-family: var(--fm);
+      font-size: 11px;
+      color: var(--o);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cg-final-video {
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 9 / 16;
+      border-radius: 12px;
+      border: 2px solid var(--o);
+      background: #000;
+      display: block;
+    }
+
+    .cg-final-foot {
+      font-family: var(--fm);
+      font-size: 10px;
+      color: var(--ink2);
+      max-width: 320px;
+      line-height: 1.5;
+    }
+
+    /* Stats strip (compressed pipeline summary) */
+    .cg-pipeline-strip {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 16px;
+      font-family: var(--fm);
+      font-size: 10px;
+      color: var(--ink2);
+    }
+
+    .cg-pipeline-strip .chip {
+      border: 1px dashed var(--line);
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--card);
+      white-space: nowrap;
+    }
+
+    .cg-pipeline-strip .arrow {
+      color: var(--g);
+      font-weight: 700;
+    }
+
+    /* Lightbox */
+    .cg-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 24px;
+    }
+
+    .cg-lightbox.open {
+      display: flex;
+    }
+
+    .cg-lightbox img {
+      max-width: min(560px, 90vw);
+      max-height: 88vh;
+      border-radius: 10px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .cg-lightbox-close {
+      position: absolute;
+      top: 18px;
+      right: 24px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .cg-outer {
+        grid-template-columns: 1fr;
+      }
+
+      .cg-final-wrap {
+        position: static;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .cg-final-video {
+        max-width: 220px;
+      }
+
+      .cg-space {
+        height: 560px;
+      }
+
+      .cg-groups-area {
+        grid-template-columns: repeat(2, auto);
+        gap: 16px 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .cg-space {
+        height: 500px;
+      }
+
+      .cg-groups-area {
+        grid-template-columns: repeat(2, auto);
+        gap: 14px 16px;
+      }
+
+      .cg-sb-node {
+        width: 58px;
+      }
+
+      .cg-final-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cg-final-video {
+        max-width: 240px;
+      }
+    }
+
+    body.dark .cg-space {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(16, 185, 129, 0.18) 1px, transparent 0);
+    }
+
+    body.dark .cg-asset-node,
+    body.dark .cg-sb-node,
+    body.dark .cg-video-node {
+      background: #171717;
+    }
+
+
+    /* ── Tech Stack ── */
+    .stack-row {
+      margin-bottom: 20px
+    }
+
+    .stack-label {
+      font-family: var(--fh);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink2);
+      margin-bottom: 10px
+    }
+
+    .stack-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    /* ── Learning card ── */
+    .learning {
+      border: 1.75px dashed var(--border);
+      border-radius: var(--r);
+      padding: 20px 24px;
+      background: var(--bg);
+      max-width: 640px
+    }
+
+    .learning .lc-head {
+      font-family: var(--fm);
+      font-size: 12px;
+      color: var(--ink3);
+      margin-bottom: 12px
+    }
+
+    .learning-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    /* ── Timeline ── */
+    .tl {
+      display: flex;
+      flex-direction: column
+    }
+
+    .tl-item {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 0 18px
+    }
+
+    .tl-axis {
+      display: flex;
+      flex-direction: column;
+      align-items: center
+    }
+
+    .tl-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 2px solid var(--g);
+      background: var(--card);
+      flex-shrink: 0;
+      margin-top: 3px;
+      z-index: 1
+    }
+
+    .tl-dot.full {
+      background: var(--g)
+    }
+
+    .tl-dot.dot-o {
+      border-color: var(--o)
+    }
+
+    .tl-seg {
+      flex: 1;
+      width: 2px;
+      margin: 4px 0;
+      background: repeating-linear-gradient(to bottom, var(--border) 0 4px, transparent 4px 8px)
+    }
+
+    .tl-body {
+      padding-bottom: 28px
+    }
+
+    .tl-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .tl-title {
+      font-family: var(--fh);
+      font-size: 16px;
+      font-weight: 600
+    }
+
+    .tl-period {
+      font-family: var(--fm);
+      font-size: 11px;
+      color: var(--ink3);
+      white-space: nowrap;
+      margin-top: 2px
+    }
+
+    .tl-co {
+      font-size: 12px;
+      color: var(--ink2);
+      margin-top: 2px
+    }
+
+    .tl-em {
+      color: var(--g);
+      font-style: normal
+    }
+
+    .tl-ul {
+      margin-top: 8px;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px
+    }
+
+    .tl-ul li {
+      font-size: 13px;
+      color: var(--ink2);
+      display: flex;
+      gap: 8px
+    }
+
+    .tl-ul li::before {
+      content: '·';
+      color: var(--g);
+      flex-shrink: 0;
+      font-size: 16px;
+      line-height: 1.3
+    }
+
+    /* ── About ── */
+    .about-card {
+      background: var(--card);
+      border: 1.75px solid var(--border2);
+      border-radius: var(--r);
+      padding: 24px;
+      font-family: var(--fm);
+      font-size: 13px;
+      line-height: 1.75;
+      max-width: 680px;
+    }
+
+    .ab-block {
+      margin-bottom: 14px
+    }
+
+    .ab-block:last-child {
+      margin-bottom: 0
+    }
+
+    .ab-comment {
+      color: var(--g);
+      font-weight: 500;
+      margin-bottom: 2px
+    }
+
+    .ab-line {
+      color: var(--ink)
+    }
+
+    .ab-sub {
+      color: var(--ink2)
+    }
+
+    /* ── Contact ── */
+    .contact-card {
+      background: var(--card);
+      border: 1.75px solid var(--border2);
+      border-radius: var(--r);
+      padding: 24px;
+      font-family: var(--fm);
+      font-size: 13px;
+      line-height: 2;
+      max-width: 480px;
+    }
+
+    .ck {
+      color: var(--ink2)
+    }
+
+    .ceq {
+      color: var(--border);
+      padding: 0 8px
+    }
+
+    .cv {
+      color: var(--ink)
+    }
+
+    .cv a {
+      color: var(--g);
+      text-decoration: none
+    }
+
+    .cv a:hover {
+      text-decoration: underline
+    }
+
+    .cv.status {
+      color: var(--g)
+    }
+
+    /* ── Tweaks ── */
+    .tweaks {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 200;
+      background: var(--card);
+      border: 1.75px solid var(--ink);
+      border-radius: var(--r);
+      padding: 16px;
+      box-shadow: 4px 4px 0 var(--ink);
+      min-width: 210px;
+      font-family: var(--fb);
+      font-size: 13px;
+      display: none;
+    }
+
+    .tweaks.show {
+      display: block
+    }
+
+    .tweaks h4 {
+      font-family: var(--fh);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 12px
+    }
+
+    .tp-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 8px 0;
+      gap: 10px
+    }
+
+    .tp-btns {
+      display: flex;
+      gap: 5px
+    }
+
+    .tp-btn {
+      font-family: var(--fb);
+      font-size: 12px;
+      border: 1.5px solid var(--border);
+      background: var(--card);
+      padding: 3px 9px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .tp-btn.active {
+      background: var(--ink);
+      color: var(--bg)
+    }
+
+    /* ── Responsive ── */
+    @media(max-width:1024px) {
+      .hero-col-links {
+        display: none
+      }
+    }
+
+    @media(max-width:800px) {
+      .hero-col-r {
+        flex: 0 0 165px
+      }
+
+      .proj-grid {
+        grid-template-columns: 1fr
+      }
+
+      .proj-card.wide {
+        grid-column: unset
+      }
+
+      .proj-wide-inner {
+        grid-template-columns: 1fr !important
+      }
+    }
+
+    @media(max-width:640px) {
+      .hero-cols {
+        display: none
+      }
+
+      .hero-mobile {
+        display: block
+      }
+
+      section {
+        margin-top: 48px
+      }
+
+      h2 {
+        font-size: 24px
+      }
+
+      .stat-item {
+        flex: 1 1 45%;
+        border-right: none;
+        border-bottom: 1px dashed var(--g20)
+      }
+
+      .topbar-left {
+        display: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Nav -->
+  <nav class="topbar">
+    <span class="topbar-left">truong-nguyen / portfolio.workflow · v2026</span>
+    <div class="topbar-right">
+      <span class="topbar-status">● Đang sẵn sàng</span>
+      <a href="mailto:truongnhat2905@gmail.com" class="btn btn-primary btn-sm">⬇ Tải CV</a>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- ═══════════════ HERO ═══════════════ -->
+    <section id="hero">
+      <div class="section-label">01 · trigger · giới-thiệu</div>
+
+      <!-- Desktop canvas -->
+      <div class="hero-canvas" id="hero-canvas">
+        <svg class="conn-svg" id="conn-svg" aria-hidden="true"></svg>
+        <div class="hero-cols">
+
+          <!-- LEFT inputs -->
+          <div class="hero-col-l">
+            <div class="node n-in" id="n-trigger">
+              <div class="node-type">trigger</div>
+              <div class="nname">📍 TP.HCM</div>
+              <div class="ndesc">Sẵn sàng · fulltime &amp; freelance</div>
+            </div>
+            <div class="node n-in" id="n-input">
+              <div class="node-type">input</div>
+              <div class="nname">3+ năm</div>
+              <div class="ndesc">Sản xuất nội dung → AI Automation</div>
+            </div>
+          </div>
+
+          <!-- CENTER main -->
+          <div class="hero-col-c">
+            <div class="node n-center" id="n-center">
+              <div class="node-type">function · main()</div>
+              <h1>Nguyễn Nhật Trường</h1>
+              <div class="nc-title">AI Automation</div>
+              <div class="nc-sub">Workflow Builder · Content Systems</div>
+              <div class="nc-hl">Chuyển hướng từ Video Editor sang AI Automation. Build workflow n8n xử lý 2,000+ bài
+                post, pipeline dịch video scale 1,000+ clip, và multi-agent system với CrewAI.</div>
+            </div>
+            <div class="hero-ctas">
+              <a href="mailto:truongnhat2905@gmail.com" class="btn btn-primary">⬇ Tải CV</a>
+              <a href="#contact" class="btn btn-secondary">✉ Liên hệ</a>
+            </div>
+          </div>
+
+          <!-- RIGHT outputs -->
+          <div class="hero-col-r">
+            <div class="node n-out-g" id="n-out-g">
+              <div class="node-type">output · tự-động-hoá</div>
+              <div class="nval">2,000+</div>
+              <div class="nlbl">bài post tự động<br>1,000+ AI videos dịch</div>
+            </div>
+            <div class="node n-out-o" id="n-out-o">
+              <div class="node-type">output · kinh-doanh</div>
+              <div class="nval">14M VND</div>
+              <div class="nlbl">doanh thu affiliate<br>120K+ người theo dõi</div>
+            </div>
+          </div>
+
+          <!-- AVT panel -->
+          <div class="hero-col-links">
+            <div class="node n-avt" id="n-links">
+              <img src="AVT.jpg" alt="Nguyễn Nhật Trường">
+              <div class="n-avt-label">Nguyễn Nhật Trường</div>
+            </div>
+          </div>
+
+        </div><!-- hero-cols -->
+        <div class="canvas-bar">
+          <span>canvas · 6 nodes · 5 edges · workflow v2026</span>
+          <span class="live">● sẵn sàng cho cơ hội mới</span>
+        </div>
+      </div><!-- hero-canvas -->
+
+      <!-- Mobile -->
+      <div class="hero-mobile">
+        <h1>Nguyễn Nhật Trường</h1>
+        <div class="hm-title">AI Automation Engineer</div>
+        <div class="hm-sub">Workflow Builder · Content Systems · TP.HCM</div>
+        <div class="hm-desc">Chuyển hướng từ Video Editor sang AI Automation. Build workflow n8n xử lý 2,000+ bài post,
+          pipeline dịch video scale 1,000+ clip, và multi-agent system với CrewAI.</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="mailto:truongnhat2905@gmail.com" class="btn btn-primary">⬇ Tải CV</a>
+          <a href="#contact" class="btn btn-secondary">✉ Liên hệ</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ STATS ═══════════════ -->
+    <section id="stats">
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="sv" data-target="2000" data-suf="+">0</div>
+          <div class="sl">Bài đăng tự động</div>
+        </div>
+        <div class="stat-item">
+          <div class="sv" data-target="1000" data-suf="+">0</div>
+          <div class="sl">Video AI đã dịch</div>
+        </div>
+        <div class="stat-item">
+          <div class="sv orange" data-target="14" data-suf="M VND">0</div>
+          <div class="sl">Doanh thu Affiliate</div>
+        </div>
+        <div class="stat-item">
+          <div class="sv orange" data-target="120" data-suf="K+">0</div>
+          <div class="sl">Người theo dõi</div>
+        </div>
+        <div class="stat-item">
+          <div class="sv" data-target="4" data-suf="+">0</div>
+          <div class="sl">AI Agent đã build</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ PROJECTS ═══════════════ -->
+    <section id="projects">
+      <div class="section-label">03 · execute · dự-án</div>
+      <h2>Dự án nổi bật</h2>
+      <div class="proj-grid">
+
+        <!-- P1 -->
+        <div class="proj-card">
+          <div class="proj-top">
+            <span class="proj-period">2024 — Hiện tại</span>
+            <div class="proj-tags"><span class="btag">automation</span></div>
+          </div>
+          <h3>Auto-Post Workflow</h3>
+          <div class="proj-tagline">Hệ thống đăng bài tự động cross-platform</div>
+          <p class="proj-desc">Build và vận hành pipeline tự động đăng bài lên Facebook Fanpage và TikTok Shop, chạy
+            liên tục 24/7 từ 2024.</p>
+          <div class="metrics">
+            <div class="mbox">
+              <div class="mv">2,000+</div>
+              <div class="ml">bài post tự động</div>
+            </div>
+            <div class="mbox">
+              <div class="mv">2+2</div>
+              <div class="ml">FB Pages + TikTok Channels</div>
+            </div>
+            <div class="mbox">
+              <div class="mv">3 bài/ngày</div>
+              <!--<div class="ml">bài/platform, tự động lịch</div>-->
+            </div>
+            <div class="mbox">
+              <div class="mv">0</div>
+              <div class="ml">thao tác thủ công sau khi setup</div>
+            </div>
+          </div>
+          <div class="badges">
+            <span class="badge bg">n8n</span><span class="badge bg-dim">Make.com</span>
+            <span class="badge">Zapier</span><span class="badge">Facebook API</span><span class="badge">TikTok
+              Node</span>
+          </div>
+        </div>
+
+        <!-- P2 -->
+        <div class="proj-card">
+          <div class="proj-top">
+            <span class="proj-period">2025 — Hiện tại</span>
+            <div class="proj-tags"><span class="btag">local-llm</span><span class="btag">production</span></div>
+          </div>
+          <h3>AI Video Translation Pipeline</h3>
+          <div class="proj-tagline">Dịch video sản phẩm cho ngành mỹ phẩm</div>
+          <p class="proj-desc">Chương trình tự động transcribe + dịch + tạo voice-over cho video ngắn về nội dung
+            makeup tutorial, chạy
+            trên local LLM — tiết kiệm 100% chi phí API.</p>
+          <div class="metrics">
+            <div class="mbox">
+              <div class="mv">1,000+</div>
+              <div class="ml">video đã dịch ở quy mô sản xuất</div>
+            </div>
+            <div class="mbox">
+              <div class="mv">80+/đêm</div>
+              <div class="ml">năng suất chế độ chạy tự động</div>
+            </div>
+            <div class="mbox">
+              <div class="mv">100%</div>
+              <div class="ml">tiết kiệm chi phí API</div>
+            </div>
+            <div class="mbox">
+              <div class="mv">2-in-1</div>
+              <div class="ml">output: phụ đề + thuyết minh</div>
+            </div>
+          </div>
+          <div class="badges">
+            <span class="badge bg">Whisper</span><span class="badge bg">LM Studio</span>
+            <span class="badge bg-dim">Gemma 4</span><span class="badge">FFmpeg</span><span class="badge">Python</span>
+          </div>
+        </div>
+
+        <!-- P3 -->
+        <div class="proj-card">
+          <div class="proj-top">
+            <span class="proj-period">2026 — Hiện tại</span>
+            <div class="proj-tags"><span class="btag">multi-agent</span><span class="btag">framework</span></div>
+          </div>
+          <h3>Multi-Agent Content System</h3>
+          <div class="proj-tagline">Hệ thống agent phối hợp viết content tự động</div>
+          <p class="proj-desc">Multi-agent với Framework CrewAI — mỗi agent có role và LLM riêng (local cho QA,
+            cloud cho writing và research). Áp dụng vào affiliate content Shopee + TikTok Shop.</p>
+          <div class="metrics">
+            <div class="mbox">
+              <div class="mv">3 agents</div>
+              <div class="ml">Nghiên cứu · Viết kịch bản · Kiểm duyệt</div>
+            </div>
+            <div class="mbox">
+              <div class="mv">2 LLMs</div>
+              <div class="ml">Qwen 3 + Gemini 2.5 Pro</div>
+            </div>
+          </div>
+          <div class="arch-flow">Agent Nghiên cứu (Gemini 2.5 Pro) → Agent Kịch bản (Gemini 2.5) → Agent Kiểm duyệt
+            (Qwen 3 local)
+          </div>
+          <div class="badges">
+            <span class="badge bg">CrewAI</span><span class="badge bg-dim">Gemini 2.5 Pro</span>
+            <span class="badge bg-dim">Qwen 3</span><span class="badge">Python</span>
+          </div>
+        </div>
+
+        <!-- P4 -->
+        <div class="proj-card">
+          <div class="proj-top">
+            <span class="proj-period">2026 — Hiện tại</span>
+            <div class="proj-tags"><span class="btag">Workflow</span></div>
+          </div>
+          <h3>Ads Policy Compliance Agent</h3>
+          <div class="proj-tagline">AI kiểm tra các kịch bản quảng cáo</div>
+          <p class="proj-desc">Agent kiểm tra kịch bản ads trước khi giao editor, phát hiện các vi phạm chính sách
+            đề xuất sửa — tích hợp trực tiếp vào workflow team.</p>
+          <div class="metrics">
+            <div class="mbox">
+              <div class="mv">✅/❌</div>
+              <div class="ml">Duyệt/Không duyệt + danh sách lỗi chi tiết</div>
+            </div>
+            <div class="mbox">
+              <div class="mv">Đã chạy</div>
+              <div class="ml">Dùng thực tế tại doanh nghiệp</div>
+            </div>
+          </div>
+          <div class="arch-flow">
+            ✅/❌ Duyệt hoặc Không &nbsp;·&nbsp; 📋 Liệt kê chỗ sai &nbsp;·&nbsp; 💡 Đề xuất sửa
+          </div>
+          <div class="badges">
+            <span class="badge bg">N8N</span><span class="badge bg-dim">Gemini/gpt model</span>
+            <span class="badge bg-dim">Policy Knowledge Base</span>
+          </div>
+        </div>
+
+        <!-- P5 Cô Giấy System — FLAGSHIP full-width -->
+        <div class="proj-card wide cg-card" style="grid-column:1/-1">
+          <div class="proj-top">
+            <span class="proj-period">2026 — Hiện tại</span>
+            <div class="proj-tags"><span class="btag">system-design</span><span class="btag">multi-agent</span><span
+                class="btag">production</span></div>
+          </div>
+          <div class="proj-wide-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start">
+            <div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+                <h3 style="margin:0">Cô Giấy System</h3>
+                <span class="badge bo" style="font-size:10px;padding:2px 8px">Flagship</span>
+              </div>
+              <div class="proj-tagline">Quy trình xây dựng nội dung.</div>
+              <p class="proj-desc" style="margin-top:8px">Thiết kế và xây dựng hệ thống sản xuất video dạy ngôn ngữ cho
+                trẻ em 6-14 tuổi bằng AI.</p>
+              <div class="badges" style="margin-top:12px">
+                <span class="badge bg">n8n</span><span class="badge bg">Google Sheets</span>
+                <span class="badge bg-dim">Gemini 2.5 Pro</span>
+                <span class="badge bg-dim">Veo 3</span>
+                <span class="badge bo-dim">Remotion</span>
+                <!-- <span class="badge">Prompt Engineering</span> -->
+              </div>
+              <div style="margin-top:14px">
+                <a href="#co-giay" class="btn btn-secondary btn-sm" style="gap:5px">↓ Xem workflow chi tiết</a>
+              </div>
+            </div>
+            <div>
+              <div class="metrics" style="grid-template-columns:1fr 1fr">
+                <div class="mbox">
+                  <div class="mv">1</div>
+                  <div class="ml">Tạo nội dung và chia phân cảnh </div>
+                </div>
+                <div class="mbox">
+                  <div class="mv">2</div>
+                  <div class="ml"> Tạo prompt image assets/ story board/ video motion</div>
+                </div>
+                <div class="mbox">
+                  <div class="mv">3</div>
+                  <div class="ml">Tạo image và video </div>
+                </div>
+                <div class="mbox o">
+                  <div class="mv">4</div>
+                  <div class="ml">Dùng Remotion ghép thành video final và thêm subtitle</div>
+                </div>
+              </div>
+              <!-- <div
+                style="margin-top:10px;padding:10px 12px;background:var(--o10);border:1px solid var(--o20);border-radius:var(--r-sm)">
+                <div style="font-size:11px;color:var(--ink2);line-height:1.6">
+                  <strong style="color:var(--ink);font-family:var(--fh)">System Architecture thinking:</strong> Data
+                  modeling với 17+ columns &amp; status machines · Token economics (gộp Shot Blocks thành Veo Clips 8s)
+                  · Spaced repetition algorithm tự động · Franchise Bible 9 parts
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- P6 full-width -->
+        <div class="proj-card wide" style="grid-column:1/-1">
+          <div class="proj-top">
+            <span class="proj-period">10/2025 — Hiện tại</span>
+            <div class="proj-tags"><span class="btag">affiliate</span><span class="btag">revenue</span></div>
+          </div>
+          <div class="proj-wide-inner" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start">
+            <div>
+              <h3>Affiliate Solo</h3>
+              <!-- <div class="proj-tagline">Self-built content system + automation cho affiliate</div>-->
+              <p class="proj-desc" style="margin-top:8px">Vận hành solo 2 Facebook Reels page + 2 TikTok affiliate
+                channel
+                ngành gia dụng. Toàn bộ content pipeline dùng AI automation tự build — từ nội dung đến đăng bài.</p>
+              <div class="badges" style="margin-top:12px">
+                <span class="badge bg-dim">TikTok Shop</span><span class="badge">Shopee Affiliate</span>
+                <!-- <span class="badge bg-dim">Self-built AI system</span> -->
+              </div>
+            </div>
+            <div class="metrics" style="grid-template-columns:1fr 1fr">
+              <div class="mbox o">
+                <div class="mv">14M VND</div>
+                <div class="ml">tổng hoa hồng (10M Shopee + 4M TikTok)</div>
+              </div>
+              <div class="mbox o">
+                <div class="mv">120K+</div>
+                <div class="ml">người theo dõi từ 2 Facebook Reels page</div>
+              </div>
+              <div class="mbox">
+                <div class="mv">4 kênh</div>
+                <div class="ml">2 FB + 2 TikTok Shop đang vận hành</div>
+              </div>
+              <div class="mbox">
+                <div class="mv">Solo</div>
+                <div class="ml">Tự vận hành, 100% điều phối bằng automation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- proj-grid -->
+    </section>
+
+    <!-- ═══════════════ CÔ GIẤY WORKFLOW (PRODUCTION FLOW) ═══════════════ -->
+    <section id="co-giay" class="cg-section-wrap">
+      <div class="section-label">04 · co-giay-project</div>
+      <h2>Cô Giấy Project (Tập 1)</h2>
+      <p class="cg-section-sub">Quy trình xây dựng nội dung · 5 assets → 14 storyboard frames → 6
+        video
+        clips → 1 final video</p>
+
+      <div class="cg-pipeline-strip">
+        <span class="chip">assets</span><span class="arrow">→</span>
+        <span class="chip">storyboard</span><span class="arrow">→</span>
+        <span class="chip">video components</span><span class="arrow">→</span>
+        <span class="chip">final output</span>
+      </div>
+
+      <div class="cg-outer">
+        <!-- Interactive space with pan/zoom -->
+        <div class="cg-space" id="cg-space">
+          <!-- Toolbar -->
+          <div class="cg-toolbar">
+            <button class="cg-tb-btn" id="cg-zoom-in" title="Zoom in" aria-label="Zoom in">+</button>
+            <button class="cg-tb-btn" id="cg-zoom-out" title="Zoom out" aria-label="Zoom out">−</button>
+            <button class="cg-tb-btn" id="cg-fit" title="Fit to screen" aria-label="Fit to screen">⊡</button>
+            <button class="cg-tb-btn" id="cg-reset" title="Reset" aria-label="Reset view">↺</button>
+          </div>
+          <div class="cg-tb-zoom" id="cg-zoom-level">100%</div>
+
+          <!-- Pan/zoom viewport -->
+          <div class="cg-viewport" id="cg-viewport">
+            <svg class="cg-svg-overlay" id="cg-svg" xmlns="http://www.w3.org/2000/svg"
+              aria-label="Cô Giấy production flow connections"></svg>
+
+            <div class="cg-space-inner" id="cg-inner">
+              <!-- COL: ASSETS -->
+              <div class="cg-assets-col">
+                <div class="cg-col-label">◆ Assets</div>
+                <div id="cg-col-assets"></div>
+              </div>
+
+              <!-- GROUPS AREA: 6 group blocks (SB frames + video) -->
+              <div class="cg-groups-area" id="cg-groups-area">
+                <!-- Built by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Final video (outside space) -->
+        <div class="cg-final-wrap">
+          <div class="cg-final-label">→ Final Output</div>
+          <video class="cg-final-video" id="cg-final-video" src="Co_Giay_tap_1/final_video/final_video.mp4" controls
+            playsinline preload="metadata"></video>
+          <div class="cg-final-foot">Tập 1 · Ngôn ngữ: EN · Chủ đề: Chào hỏi · Format 9:16 Reels · Stop-motion AI</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox for asset / storyboard preview -->
+    <div class="cg-lightbox" id="cg-lightbox" role="dialog" aria-modal="true">
+      <button class="cg-lightbox-close" id="cg-lightbox-close" aria-label="Đóng">✕</button>
+      <img id="cg-lightbox-img" alt="">
+    </div>
+
+
+    <!-- ═══════════════ TECH STACK ═══════════════ -->
+    <section id="stack">
+      <div class="section-label">05 · Công-nghệ · Công cụ</div>
+      <h2>Công nghệ &amp; Công cụ</h2>
+      <div class="stack-row">
+        <div class="stack-label">🤖 AI &amp; LLMs</div>
+        <div class="stack-badges">
+          <span class="badge bg">Claude</span><span class="badge bg">Gemini</span>
+          <span class="badge bg">LM Studio</span>
+          <span class="badge bg-dim">Gemma 4</span>
+          <span class="badge bg-dim">Qwen 3</span><span class="badge">Ollama</span>
+        </div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-label">⚙️ Automation &amp; Orchestration</div>
+        <div class="stack-badges">
+          <span class="badge bg">n8n</span><span class="badge bg">CrewAI</span>
+          <span class="badge bg-dim">Gemini Gem</span><span class="badge">Make.com</span><span
+            class="badge">Zapier</span>
+        </div>
+      </div>
+      <!-- <div class="stack-row">
+        <div class="stack-label">💻 Development &amp; DevOps</div>
+        <div class="stack-badges">
+          <span class="badge">Python</span><span class="badge">Docker</span>
+          <span class="badge">Ngrok</span><span class="badge">FFmpeg</span>
+          <span class="badge">Remotion</span><span class="badge">REST API</span>
+        </div>
+      </div> -->
+      <div class="stack-row" style="margin-bottom:0">
+        <div class="stack-label">🎬 Media &amp; Creative</div>
+        <div class="stack-badges">
+          <span class="badge bo-dim">Premiere Pro</span><span class="badge bo-dim">After Effects</span>
+          <span class="badge bo-dim">CapCut</span>
+          <!-- <span class="badge">Meta Spark AR</span> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ LEARNING ═══════════════ -->
+    <section id="learning">
+      <div class="section-label">06 · wip · đang-học</div>
+      <div class="learning">
+        <div class="lc-head">// learning.wip — đang cập nhật liên tục...</div>
+        <div class="learning-badges">
+          <span class="badge bg-dim">RAG Pipelines</span><span class="badge bg-dim">Vector Databases</span>
+          <span class="badge bg-dim">Agentic AI</span>
+          <span class="badge">Obsidian</span><span class="badge">Claude Code</span><span class="badge">Cowork</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ EXPERIENCE ═══════════════ -->
+    <section id="experience">
+      <div class="section-label">07 · history · kinh-nghiệm</div>
+      <h2>Kinh nghiệm</h2>
+      <div class="tl">
+
+        <!-- <div class="tl-item">
+          <div class="tl-axis">
+            <div class="tl-dot full"></div>
+            <div class="tl-seg"></div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-row">
+              <div>
+                <div class="tl-title">AI Automation Engineer</div>
+                <div class="tl-co">Công ty Mỹ phẩm, TP.HCM · <em class="tl-em">vai trò tự khởi xướng</em></div>
+              </div>
+              <span class="tl-period">2026 — Hiện tại</span>
+            </div>
+            <ul class="tl-ul">
+              <li>Build quy trình dịch video tự động — scale 1,000+ clip sản xuất</li>
+              <li>Build Ads Policy Compliance Agent — tích hợp trực tiếp vào workflow team</li>
+              <li>Khởi xướng AI transformation cho content team</li>
+            </ul>
+          </div>
+        </div> -->
+
+        <div class="tl-item">
+          <div class="tl-axis">
+            <div class="tl-dot full"></div>
+            <div class="tl-seg"></div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-row">
+              <div>
+                <div class="tl-title">AI Video/ Automation</div>
+                <div class="tl-co">HV HOLDINGS GLOBAL - BU Faca</div>
+              </div>
+              <span class="tl-period">08/2025 — Hiện tại</span>
+            </div>
+            <ul class="tl-ul">
+              <li>Nghiên cứu các AI về video/ hình ảnh.</li>
+              <li>Sản xuất các video AI về sản phẩm để chạy quảng cáo.</li>
+              <li>Xây dựng các workflow automation cho team.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-axis">
+            <div class="tl-dot"></div>
+            <div class="tl-seg"></div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-row">
+              <div>
+                <div class="tl-title">Video Editor</div>
+                <div class="tl-co">HV HOLDINGS GLOBAL - BU Faca</div>
+              </div>
+              <span class="tl-period">05/2023 — 08/2025</span>
+            </div>
+            <ul class="tl-ul">
+              <li>Sản xuất video chạy quảng cáo cho các sản phẩm mỹ phẩm</li>
+              <li>Lên kế hoach, đi tiền trạm, chuẩn bị thiết bị để quay diễn viên</li>
+              <!-- <li>Chốt 2 biệt thự Q1 trong 4 tháng qua video BĐS freelance</li> -->
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-axis">
+            <div class="tl-dot dot-o"></div>
+            <div class="tl-seg"></div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-row">
+              <div>
+                <div class="tl-title">Affiliate Solo</div>
+                <div class="tl-co">Shopee Affiliate + TikTok Shop</div>
+              </div>
+              <span class="tl-period">10/2025 — Hiện tại</span>
+            </div>
+            <ul class="tl-ul">
+              <li>Xây dựng hệ thống nội dung + tự động hóa đăng bài</li>
+              <li>14M VND GMV · 120K+ followers · 4 channels active</li>
+              <!-- <li>Niche gia dụng, đang test thêm mảng rửa xe</li> -->
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════ ABOUT ═══════════════ -->
+    <section id="about">
+      <div class="section-label">07 · context · giới-thiệu</div>
+      <h2>Giới thiệu</h2>
+      <div class="about-card">
+        <div class="ab-block">
+          <div class="ab-comment">// background</div>
+          <div class="ab-line">ĐH Tài nguyên và Môi trường TP.HCM (2018-2022)</div>
+          <div class="ab-sub">Chuyên ngành CNTT</div>
+          <!-- <div class="ab-sub">Luận văn AR trong bán hàng · 9.0/10 · Học bổng cuối kỳ</div> -->
+        </div>
+        <div class="ab-block">
+          <div class="ab-comment">// transition</div>
+          <div class="ab-line">3+ năm Video Editor</div>
+          <div class="ab-sub">→ 2025: Chuyển hướng AI Video</div>
+          <div class="ab-sub">→ 2026: AI Automation </div>
+        </div>
+        <div class="ab-block">
+          <div class="ab-comment">// working_style</div>
+          <div class="ab-sub">Tự học nhanh · Làm việc độc lập · Làm việc nhóm</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ CONTACT ═══════════════ -->
+    <section id="contact">
+      <div class="section-label">08 · output · liên-hệ</div>
+      <h2>Liên hệ</h2>
+      <div class="contact-card">
+        <div><span class="ck">LOCATION</span><span class="ceq">=</span><span class="cv">Bình Lợi Trung, TP.HCM</span>
+        </div>
+        <div><span class="ck">EMAIL</span><span class="ceq">=</span><span class="cv">truongnhat2905@gmail.com</span>
+        </div>
+        <div><span class="ck">FACEBOOK</span><span class="ceq">=</span><span class="cv"><a
+              href="https://www.facebook.com/nguyentruong2905"
+              target="_blank">https://www.facebook.com/nguyentruong2905</a></span></div>
+        <!-- <div><span class="ck">LINKEDIN</span><span class="ceq">=</span><span class="cv" style="color:var(--ink3)">"[bổ
+            sung sau]"</span></div> -->
+        <!-- <div><span class="ck">PHONE</span><span class="ceq">=</span><span class="cv"
+            style="color:var(--ink3)">0379137483
+          </span></div> -->
+        <div><span class="ck">PHONE</span><span class="ceq">=</span><span class="cv">0379137483</span></div>
+
+        <div style="margin-top:6px"><span class="ck">STATUS</span><span class="ceq">=</span><span class="cv status">●
+            Sẵn sàng cho cơ hội mới</span></div>
+      </div>
+    </section>
+
+  </div><!-- .page -->
+
+  <!-- Tweaks panel -->
+  <div class="tweaks" id="tweaks">
+    <h4>Tuỳ chỉnh</h4>
+    <div class="tp-row"><span>Giao diện</span>
+      <div class="tp-btns"><button class="tp-btn active" data-theme="light">Sáng</button><button class="tp-btn"
+          data-theme="dark">Tối</button></div>
+    </div>
+    <div class="tp-row"><span>Đường nối</span>
+      <div class="tp-btns"><button class="tp-btn active" data-lines="on">Bật</button><button class="tp-btn"
+          data-lines="off">Tắt</button></div>
+    </div>
+    <div class="tp-row"><span>Màu nhấn (xanh)</span><input type="color" id="tp-green" value="#10B981"
+        style="width:34px;height:26px;border:1.5px solid var(--border);border-radius:5px;padding:1px;cursor:pointer;background:none">
+    </div>
+  </div>
+
+  <script>
+    const DEFAULTS = /*EDITMODE-BEGIN*/{
+      "theme": "light",
+      "lines": "on",
+      "green": "#10B981"
+    }/*EDITMODE-END*/;
+    let S = { ...DEFAULTS };
+
+    // ── Draw SVG connections ──
+    function draw() {
+      const canvas = document.getElementById('hero-canvas');
+      const svg = document.getElementById('conn-svg');
+      if (!canvas || !svg) return;
+      const cr = canvas.getBoundingClientRect();
+
+      const edge = (id, side) => {
+        const el = document.getElementById(id);
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        const x = r.left - cr.left, y = r.top - cr.top;
+        if (side === 'r') return [x + r.width, y + r.height / 2];
+        if (side === 'l') return [x, y + r.height / 2];
+        return null;
+      };
+
+      const bez = (a, b) => {
+        if (!a || !b) return '';
+        const mx = (a[0] + b[0]) / 2;
+        return `M${a[0]},${a[1]} C${mx},${a[1]} ${mx},${b[1]} ${b[0]},${b[1]}`;
+      };
+
+      const ink = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim();
+      const g = S.green;
+      const o = '#F97316';
+
+      svg.innerHTML = `<defs>
+    <marker id="mi" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0L8,4L0,8z" fill="${ink}"/></marker>
+    <marker id="mg" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0L8,4L0,8z" fill="${g}"/></marker>
+    <marker id="mo" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0L8,4L0,8z" fill="${o}"/></marker>
+  </defs>
+  <path class="cl" d="${bez(edge('n-trigger', 'r'), edge('n-center', 'l'))}" fill="none" stroke="${ink}" stroke-width="1.5" stroke-dasharray="5,5" marker-end="url(#mi)"/>
+  <path class="cl" d="${bez(edge('n-input', 'r'), edge('n-center', 'l'))}" fill="none" stroke="${ink}" stroke-width="1.5" stroke-dasharray="5,5" marker-end="url(#mi)"/>
+  <path class="cl" d="${bez(edge('n-center', 'r'), edge('n-out-g', 'l'))}" fill="none" stroke="${g}" stroke-width="1.5" stroke-dasharray="5,5" marker-end="url(#mg)"/>
+  <path class="cl" d="${bez(edge('n-center', 'r'), edge('n-out-o', 'l'))}" fill="none" stroke="${o}" stroke-width="1.5" stroke-dasharray="5,5" marker-end="url(#mo)"/>
+  <path class="cl" d="${bez(edge('n-out-g', 'r'), edge('n-links', 'l'))}" fill="none" stroke="${g}" stroke-width="1.5" stroke-dasharray="5,5"/>
+  <path class="cl" d="${bez(edge('n-out-o', 'r'), edge('n-links', 'l'))}" fill="none" stroke="${o}" stroke-width="1.5" stroke-dasharray="5,5"/>`;
+
+      // animate lines in
+      svg.querySelectorAll('.cl').forEach((p, i) => {
+        try {
+          const len = p.getTotalLength();
+          p.style.cssText = `stroke-dasharray:${len};stroke-dashoffset:${len};animation:line-in .7s ease ${.15 + i * .12}s forwards`;
+        } catch (e) { }
+      });
+    }
+
+    if (!document.getElementById('line-anim')) {
+      const s = document.createElement('style');
+      s.id = 'line-anim';
+      s.textContent = '@keyframes line-in{to{stroke-dashoffset:0}}';
+      document.head.appendChild(s);
+    }
+
+    // ── Stats count-up ──
+    const statsObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('[data-target]').forEach(el => {
+          const end = +el.dataset.target, suf = el.dataset.suf || '';
+          const t0 = performance.now();
+          const tick = now => {
+            const p = Math.min((now - t0) / 1100, 1);
+            const ease = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(ease * end).toLocaleString() + suf;
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        });
+        statsObs.unobserve(e.target);
+      });
+    }, { threshold: .4 });
+    const sb = document.querySelector('.stats-bar');
+    if (sb) statsObs.observe(sb);
+
+    // ── Apply tweaks ──
+    function apply(s) {
+      document.body.classList.toggle('dark', s.theme === 'dark');
+      document.documentElement.style.setProperty('--g', s.green);
+      document.documentElement.style.setProperty('--g10', hexAlpha(s.green, .10));
+      document.documentElement.style.setProperty('--g20', hexAlpha(s.green, .20));
+      document.getElementById('conn-svg').style.display = s.lines === 'off' ? 'none' : '';
+      document.querySelectorAll('[data-theme]').forEach(b => b.classList.toggle('active', b.dataset.theme === s.theme));
+      document.querySelectorAll('[data-lines]').forEach(b => b.classList.toggle('active', b.dataset.lines === s.lines));
+      document.getElementById('tp-green').value = s.green;
+      draw();
+    }
+
+    function hexAlpha(hex, a) {
+      const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+      return `rgba(${r},${g},${b},${a})`;
+    }
+
+    function update(edits) {
+      S = { ...S, ...edits };
+      apply(S);
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    }
+
+    document.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => update({ theme: b.dataset.theme })));
+    document.querySelectorAll('[data-lines]').forEach(b => b.addEventListener('click', () => update({ lines: b.dataset.lines })));
+    document.getElementById('tp-green').addEventListener('input', e => update({ green: e.target.value }));
+
+    const panel = document.getElementById('tweaks');
+    window.addEventListener('message', ev => {
+      const d = ev.data || {};
+      if (d.type === '__activate_edit_mode') panel.classList.add('show');
+      if (d.type === '__deactivate_edit_mode') panel.classList.remove('show');
+    });
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+    apply(S);
+    window.addEventListener('load', draw);
+    window.addEventListener('resize', draw);
+
+    // ══════════════════════════════════════════
+    // CÔ GIẤY SYSTEM — Production Flow (v2)
+    // ══════════════════════════════════════════
+
+    (function () {
+      const BASE = 'Co_Giay_tap_1/';
+
+      const ASSETS = [
+        { id: 'a1', file: 'asset/backgr_202604221019.jpeg', label: 'background' },
+        { id: 'a2', file: 'asset/co_giay_202604221019.jpeg', label: 'co_giay' },
+        { id: 'a3', file: 'asset/hand_bye_202604221020.jpeg', label: 'hand_bye' },
+        { id: 'a4', file: 'asset/hand_hi_202604221020.jpeg', label: 'hand_hi' },
+        { id: 'a5', file: 'asset/heart_202604221019.jpeg', label: 'heart' },
+      ];
+
+      const SB_FILES = {
+        1: '1_202604221022.jpeg', 2: '2_202604221021.jpeg', 3: '3_202604221021.jpeg',
+        4: '4_202604221021.jpeg', 5: '5_202604221021.jpeg', 6: '6_202604221021.jpeg',
+        7: '7_202604221021.jpeg', 8: '8_202604221021.jpeg', 9: '9_202604221021.jpeg',
+        10: '10_202604221021.jpeg', 11: '11_202604221021.jpeg', 12: '12_202604221021.jpeg',
+        13: '13t_202604221021.jpeg', 14: '14_202604221021.jpeg'
+      };
+
+      // Video component → storyboard group mapping
+      const VIDEOS = [
+        { id: 'v1', file: 'video/1.mp4', frames: [1, 2], grp: 1, label: 'Video 1', range: 'Frame 1–2' },
+        { id: 'v2', file: 'video/2.mp4', frames: [3, 4, 5], grp: 2, label: 'Video 2', range: 'Frame 3–5' },
+        { id: 'v3', file: 'video/3.mp4', frames: [6, 7, 8], grp: 3, label: 'Video 3', range: 'Frame 6–8' },
+        { id: 'v4', file: 'video/4.mp4', frames: [9, 10, 11], grp: 4, label: 'Video 4', range: 'Frame 9–11' },
+        { id: 'v5', file: 'video/5.mp4', frames: [12, 13], grp: 5, label: 'Video 5', range: 'Frame 12–13' },
+        { id: 'v6', file: 'video/6.mp4', frames: [14], grp: 6, label: 'Video 6', range: 'Frame 14 · end' },
+      ];
+
+      // ── Build nodes ──
+      function buildAssets() {
+        const col = document.getElementById('cg-col-assets');
+        if (!col) return;
+        col.innerHTML = ASSETS.map(a => `
+          <div class="cg-asset-node" id="cg-${a.id}" data-src="${BASE}${a.file}" data-kind="asset">
+            <img class="cg-asset-img" src="${BASE}${a.file}" alt="${a.label}" loading="lazy">
+            <div class="cg-asset-label">${a.label}</div>
+          </div>
+        `).join('');
+      }
+
+      function buildGroups() {
+        const area = document.getElementById('cg-groups-area');
+        if (!area) return;
+        area.innerHTML = VIDEOS.map(v => {
+          const sbNodes = v.frames.map(f => {
+            const file = SB_FILES[f];
+            return `<div class="cg-sb-node" id="cg-sb${f}" data-grp="${v.grp}"
+                      data-src="${BASE}story_board/${file}" data-kind="storyboard">
+                      <img class="cg-sb-img" src="${BASE}story_board/${file}"
+                           alt="Frame ${f}" loading="lazy">
+                      <span class="cg-sb-num">${f}</span>
+                    </div>`;
+          }).join('');
+
+          return `
+            <div class="cg-group-block" id="cg-grp${v.grp}">
+              <div class="cg-group-frames">${sbNodes}</div>
+              <div class="cg-group-connector">↓</div>
+              <div class="cg-group-video">
+                <div class="cg-video-node" id="cg-${v.id}" data-grp="${v.grp}">
+                  <video src="${BASE}${v.file}" loop muted playsinline preload="none"></video>
+                  <div class="cg-play-badge">▶</div>
+                  <div class="cg-video-meta">
+                    <span><strong>${v.label}</strong></span>
+                    <span>${v.range}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // ── Edges ──
+      // Walk offsetParent chain up to `root`, summing offsetLeft/offsetTop.
+      // This yields untransformed layout coordinates — immune to pan/zoom transform
+      // applied to .cg-viewport.
+      function offsetIn(el, root) {
+        let x = 0, y = 0;
+        let cur = el;
+        while (cur && cur !== root) {
+          x += cur.offsetLeft;
+          y += cur.offsetTop;
+          cur = cur.offsetParent;
+        }
+        return { x, y };
+      }
+
+      function getAnchors(el, root) {
+        const o = offsetIn(el, root);
+        const w = el.offsetWidth, h = el.offsetHeight;
+        return {
+          left: { x: o.x, y: o.y + h / 2 },
+          right: { x: o.x + w, y: o.y + h / 2 },
+          top: { x: o.x + w / 2, y: o.y },
+          bottom: { x: o.x + w / 2, y: o.y + h },
+          cx: o.x + w / 2,
+          cy: o.y + h / 2,
+          w, h,
+        };
+      }
+
+      function drawEdges() {
+        const svg = document.getElementById('cg-svg');
+        const inner = document.getElementById('cg-inner');
+        if (!svg || !inner) return;
+
+        const W = inner.offsetWidth;
+        const H = inner.offsetHeight;
+        if (W < 10 || H < 10) return;
+        svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+        svg.setAttribute('width', W);
+        svg.setAttribute('height', H);
+        svg.style.width = W + 'px';
+        svg.style.height = H + 'px';
+
+        let svgHTML = '';
+
+        // ── EDGE TYPE 1: Asset → each SB node (green bundle, dashed) ──
+        const assetEls = ASSETS.map(a => document.getElementById(`cg-${a.id}`));
+        const allSbEls = [];
+        for (let i = 1; i <= 14; i++) {
+          const el = document.getElementById(`cg-sb${i}`);
+          if (el) allSbEls.push(el);
+        }
+
+        if (assetEls.every(Boolean) && allSbEls.length > 0) {
+          const assetPts = assetEls.map(el => getAnchors(el, inner).right);
+          const sbPts = allSbEls.map(el => getAnchors(el, inner).left);
+          const sbMinX = Math.min(...sbPts.map(p => p.x));
+          const assetMaxX = Math.max(...assetPts.map(p => p.x));
+          const bundleX = assetMaxX + (sbMinX - assetMaxX) * 0.5;
+
+          assetPts.forEach((src, ai) => {
+            sbPts.forEach((dst, si) => {
+              const c1x = src.x + (bundleX - src.x) * 0.7;
+              const c2x = bundleX + (dst.x - bundleX) * 0.3;
+              const d = `M ${src.x} ${src.y} C ${c1x} ${src.y}, ${c2x} ${dst.y}, ${dst.x} ${dst.y}`;
+              svgHTML += `<path class="cg-edge cg-edge-asset" d="${d}" stroke="#10B981" stroke-width="0.8" stroke-opacity="0.35" stroke-dasharray="3 4"/>`;
+            });
+          });
+        }
+
+        // ── EDGE TYPE 2: SB node → Video node below (orange, converge to top-center) ──
+        VIDEOS.forEach(v => {
+          const vEl = document.getElementById(`cg-${v.id}`);
+          if (!vEl) return;
+          const vA = getAnchors(vEl, inner);
+
+          v.frames.forEach(frameNum => {
+            const sbEl = document.getElementById(`cg-sb${frameNum}`);
+            if (!sbEl) return;
+            const sbA = getAnchors(sbEl, inner);
+            const midY = sbA.bottom.y + (vA.top.y - sbA.bottom.y) * 0.5;
+            const d = `M ${sbA.bottom.x} ${sbA.bottom.y} C ${sbA.bottom.x} ${midY}, ${vA.top.x} ${midY}, ${vA.top.x} ${vA.top.y}`;
+            svgHTML += `<path class="cg-edge cg-edge-video" d="${d}" stroke="#F97316" stroke-width="1.8" stroke-opacity="0.9"/>`;
+          });
+        });
+
+        svg.innerHTML = svgHTML;
+      }
+
+      // ── One-shot animation ──
+      let cgAnimated = false;
+
+      function animateEdges() {
+        if (cgAnimated) return;
+        cgAnimated = true;
+        const paths = document.querySelectorAll('#cg-svg .cg-edge');
+        paths.forEach((p, i) => {
+          const len = p.getTotalLength ? p.getTotalLength() : 1000;
+          p.style.strokeDasharray = len;
+          p.style.strokeDashoffset = len;
+          p.style.transition = `stroke-dashoffset 900ms cubic-bezier(.4,0,.2,1) ${i * 8}ms`;
+          // force reflow, then release
+          void p.getBoundingClientRect();
+          requestAnimationFrame(() => {
+            p.style.strokeDashoffset = '0';
+          });
+          // after animation, restore dashed style for asset edges
+          setTimeout(() => {
+            if (p.classList.contains('cg-edge-asset')) {
+              p.style.transition = '';
+              p.style.strokeDasharray = '3 4';
+              p.style.strokeDashoffset = '';
+            } else {
+              p.style.transition = '';
+              p.style.strokeDasharray = '';
+              p.style.strokeDashoffset = '';
+            }
+          }, 900 + i * 8 + 50);
+        });
+      }
+
+      // ── Video play/pause ──
+      function attachVideoHandlers() {
+        document.querySelectorAll('.cg-video-node').forEach(node => {
+          const vid = node.querySelector('video');
+          if (!vid) return;
+          node.addEventListener('click', () => {
+            if (vid.paused) {
+              document.querySelectorAll('.cg-video-node video').forEach(v => {
+                if (v !== vid) { v.pause(); v.parentElement.classList.remove('playing'); }
+              });
+              vid.play().catch(() => { });
+              node.classList.add('playing');
+            } else {
+              vid.pause();
+              node.classList.remove('playing');
+            }
+          });
+          vid.addEventListener('ended', () => node.classList.remove('playing'));
+        });
+      }
+
+      // ── Lightbox ──
+      function attachLightbox() {
+        const lb = document.getElementById('cg-lightbox');
+        const img = document.getElementById('cg-lightbox-img');
+        const close = document.getElementById('cg-lightbox-close');
+        if (!lb || !img || !close) return;
+
+        function open(src) {
+          img.src = src;
+          lb.classList.add('open');
+        }
+        function closeLb() {
+          lb.classList.remove('open');
+          img.src = '';
+        }
+
+        document.querySelectorAll('[data-kind="asset"], [data-kind="storyboard"]').forEach(el => {
+          el.addEventListener('click', () => {
+            const src = el.getAttribute('data-src');
+            if (src) open(src);
+          });
+        });
+
+        close.addEventListener('click', closeLb);
+        lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+      }
+
+      // ── Pan / Zoom ──
+      const state = { scale: 1, tx: 0, ty: 0, minScale: 0.4, maxScale: 2.2 };
+      let dragging = false, dragStart = null;
+
+      function applyTransform() {
+        const vp = document.getElementById('cg-viewport');
+        if (!vp) return;
+        vp.style.transform = `translate(${state.tx}px, ${state.ty}px) scale(${state.scale})`;
+        const zl = document.getElementById('cg-zoom-level');
+        if (zl) zl.textContent = Math.round(state.scale * 100) + '%';
+      }
+
+      function clampScale(s) {
+        return Math.max(state.minScale, Math.min(state.maxScale, s));
+      }
+
+      function zoomAt(factor, cx, cy) {
+        const space = document.getElementById('cg-space');
+        if (!space) return;
+        const rect = space.getBoundingClientRect();
+        // cx, cy in screen space → convert to viewport-local before transform
+        const lx = (cx - rect.left - state.tx) / state.scale;
+        const ly = (cy - rect.top - state.ty) / state.scale;
+        const newScale = clampScale(state.scale * factor);
+        state.tx = (cx - rect.left) - lx * newScale;
+        state.ty = (cy - rect.top) - ly * newScale;
+        state.scale = newScale;
+        applyTransform();
+      }
+
+      function fitToScreen() {
+        const space = document.getElementById('cg-space');
+        const inner = document.getElementById('cg-inner');
+        if (!space || !inner) return;
+        const sw = space.clientWidth;
+        const sh = space.clientHeight;
+        const iw = inner.offsetWidth + 40;  // plus padding
+        const ih = inner.offsetHeight + 40;
+        const s = clampScale(Math.min(sw / iw, sh / ih));
+        state.scale = s;
+        state.tx = (sw - iw * s) / 2;
+        state.ty = (sh - ih * s) / 2;
+        applyTransform();
+      }
+
+      function resetView() {
+        state.scale = 1;
+        state.tx = 0;
+        state.ty = 0;
+        applyTransform();
+      }
+
+      function attachPanZoom() {
+        const space = document.getElementById('cg-space');
+        if (!space) return;
+
+        // Wheel zoom
+        space.addEventListener('wheel', (e) => {
+          e.preventDefault();
+          const factor = e.deltaY < 0 ? 1.12 : 0.89;
+          zoomAt(factor, e.clientX, e.clientY);
+        }, { passive: false });
+
+        // Mouse pan
+        space.addEventListener('mousedown', (e) => {
+          // Don't pan when clicking on a node (let the node handle its click)
+          if (e.target.closest('.cg-asset-node, .cg-sb-node, .cg-video-node, .cg-toolbar')) return;
+          dragging = true;
+          dragStart = { x: e.clientX, y: e.clientY, tx: state.tx, ty: state.ty };
+          space.classList.add('grabbing');
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (!dragging || !dragStart) return;
+          state.tx = dragStart.tx + (e.clientX - dragStart.x);
+          state.ty = dragStart.ty + (e.clientY - dragStart.y);
+          applyTransform();
+        });
+
+        window.addEventListener('mouseup', () => {
+          dragging = false;
+          dragStart = null;
+          space.classList.remove('grabbing');
+        });
+
+        // Touch pan + pinch zoom
+        let pinchStart = null;
+        space.addEventListener('touchstart', (e) => {
+          if (e.target.closest('.cg-asset-node, .cg-sb-node, .cg-video-node, .cg-toolbar')) return;
+          if (e.touches.length === 1) {
+            dragging = true;
+            dragStart = {
+              x: e.touches[0].clientX, y: e.touches[0].clientY,
+              tx: state.tx, ty: state.ty,
+            };
+          } else if (e.touches.length === 2) {
+            dragging = false;
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            pinchStart = {
+              dist: Math.hypot(dx, dy),
+              scale: state.scale,
+              cx: (e.touches[0].clientX + e.touches[1].clientX) / 2,
+              cy: (e.touches[0].clientY + e.touches[1].clientY) / 2,
+            };
+          }
+        }, { passive: true });
+
+        space.addEventListener('touchmove', (e) => {
+          if (e.touches.length === 1 && dragging && dragStart) {
+            state.tx = dragStart.tx + (e.touches[0].clientX - dragStart.x);
+            state.ty = dragStart.ty + (e.touches[0].clientY - dragStart.y);
+            applyTransform();
+            e.preventDefault();
+          } else if (e.touches.length === 2 && pinchStart) {
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            const dist = Math.hypot(dx, dy);
+            const factor = dist / pinchStart.dist;
+            const targetScale = clampScale(pinchStart.scale * factor);
+            const actualFactor = targetScale / state.scale;
+            zoomAt(actualFactor, pinchStart.cx, pinchStart.cy);
+            e.preventDefault();
+          }
+        }, { passive: false });
+
+        space.addEventListener('touchend', () => {
+          dragging = false;
+          dragStart = null;
+          pinchStart = null;
+        });
+
+        // Toolbar buttons
+        const $ = (id) => document.getElementById(id);
+        $('cg-zoom-in') && $('cg-zoom-in').addEventListener('click', () => {
+          const r = space.getBoundingClientRect();
+          zoomAt(1.2, r.left + r.width / 2, r.top + r.height / 2);
+        });
+        $('cg-zoom-out') && $('cg-zoom-out').addEventListener('click', () => {
+          const r = space.getBoundingClientRect();
+          zoomAt(0.83, r.left + r.width / 2, r.top + r.height / 2);
+        });
+        $('cg-fit') && $('cg-fit').addEventListener('click', fitToScreen);
+        $('cg-reset') && $('cg-reset').addEventListener('click', resetView);
+      }
+
+      // ── Init ──
+      function init() {
+        buildAssets();
+        buildGroups();
+        attachVideoHandlers();
+        attachLightbox();
+        attachPanZoom();
+
+        // Defer edge drawing until images have layout
+        const doDraw = () => { drawEdges(); fitToScreen(); };
+        if (document.readyState === 'complete') {
+          requestAnimationFrame(doDraw);
+        } else {
+          window.addEventListener('load', () => requestAnimationFrame(doDraw));
+        }
+
+        // Re-draw on resize (no re-animation, flag stays)
+        let rt = null;
+        window.addEventListener('resize', () => {
+          clearTimeout(rt);
+          rt = setTimeout(() => {
+            drawEdges();
+            fitToScreen();
+          }, 120);
+        });
+
+        // One-shot animation when section enters viewport
+        const section = document.getElementById('co-giay');
+        if (section && 'IntersectionObserver' in window) {
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting && !cgAnimated) {
+                // give drawEdges a chance to complete (in case of slow image layout)
+                setTimeout(animateEdges, 80);
+                io.disconnect();
+              }
+            });
+          }, { threshold: 0.18 });
+          io.observe(section);
+        } else {
+          setTimeout(animateEdges, 400);
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+
+
+  </script>
+</body>
+
+</html>
