@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV · Nguyễn Nhật Trường — AI Automation</title>
+
+  <!-- Google Fonts: đồng bộ với CV Portfolio.html -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ───────────────────────────────────────────────────────────
+       CV-Print.html — bản PDF-first, A4, 2 trang, 2-column
+       Đồng bộ palette + typography với CV Portfolio.html
+       ─────────────────────────────────────────────────────────── */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --g: #10B981;
+      --o: #F97316;
+      --g10: rgba(16, 185, 129, .10);
+      --g20: rgba(16, 185, 129, .22);
+      --o10: rgba(249, 115, 22, .08);
+      --o20: rgba(249, 115, 22, .20);
+      --ink: #1A1A1A;
+      --ink2: #555;
+      --ink3: #888;
+      --border: #D0D0D0;
+      --border2: #EBEBEB;
+      --bg: #FAFAFA;
+      --paper: #FFFFFF;
+      --sidebar: #F4F4F0;
+      --r: 8px;
+      --r-sm: 5px;
+
+      --fh: 'Space Grotesk', sans-serif;
+      --fb: 'Inter', sans-serif;
+      --fm: 'JetBrains Mono', monospace;
+    }
+
+    html,
+    body {
+      background: var(--bg);
+      font-family: var(--fb);
+      color: var(--ink);
+      font-size: 10pt;
+      line-height: 1.45;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── A4 paper ──
+       Quan trọng: dùng `height: 297mm` (KHÔNG phải min-height) +
+       `overflow: hidden` để page bám đúng khổ A4, không tràn sang trang lẻ. */
+    .page {
+      width: 210mm;
+      height: 297mm;
+      margin: 14px auto;
+      background: var(--paper);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+      display: grid;
+      grid-template-columns: 76mm 1fr;
+      page-break-after: always;
+      overflow: hidden;
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      background: var(--sidebar);
+      padding: 12mm 7mm;
+      border-right: 1px dashed var(--border);
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    /* ── Main ── */
+    .main {
+      padding: 12mm 10mm;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    /* ── Header (trang 1, sidebar) ── */
+    .avatar {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background: var(--paper);
+      border: 2px solid var(--g20);
+      object-fit: cover;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .name-block {
+      margin-bottom: 14px;
+    }
+
+    .name-block h1 {
+      font-family: var(--fh);
+      font-size: 17pt;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      line-height: 1.15;
+      color: var(--ink);
+      overflow-wrap: break-word;
+    }
+
+    .name-block .role {
+      font-family: var(--fm);
+      font-size: 9pt;
+      color: var(--g);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .name-block .role-sub {
+      font-size: 8.5pt;
+      color: var(--ink2);
+      margin-top: 2px;
+    }
+
+    /* ── Section header (sidebar + main) ── */
+    .sec {
+      margin-top: 14px;
+    }
+
+    .sec:first-child {
+      margin-top: 0;
+    }
+
+    .sec-label {
+      font-family: var(--fm);
+      font-size: 7.5pt;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sec-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border2);
+    }
+
+    .sec h2 {
+      font-family: var(--fh);
+      font-size: 13pt;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    .sec.sb h2 {
+      font-size: 11pt;
+      margin-bottom: 6px;
+    }
+
+    /* ── Contact (.env style) ──
+       Stacked layout (key trên · value dưới) cho sidebar hẹp:
+       giữ vibe .env nhưng không bị wrap cắt giữa từ. */
+    .contact {
+      font-family: var(--fm);
+      font-size: 7.8pt;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .contact .row {
+      margin-bottom: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .contact .row.inline {
+      flex-direction: row;
+      align-items: baseline;
+      flex-wrap: nowrap;
+      gap: 2px;
+    }
+
+    .contact .row.inline .cv {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .contact .ck {
+      color: var(--g);
+      font-size: 7.2pt;
+      letter-spacing: .04em;
+    }
+
+    .contact .ceq {
+      color: var(--ink3);
+      margin: 0 4px;
+    }
+
+    .contact .cv {
+      color: var(--ink);
+      overflow-wrap: anywhere;
+      word-break: normal;
+      max-width: 100%;
+      display: inline-block;
+    }
+
+    .contact .cv a {
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .contact .status {
+      color: var(--g);
+      font-size: 7.5pt;
+    }
+
+    /* ── Stack badges (sidebar) ── */
+    .stack-group {
+      margin-bottom: 8px;
+    }
+
+    .stack-group .glabel {
+      font-family: var(--fh);
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: var(--fm);
+      font-size: 7.5pt;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    .badge.bg {
+      background: var(--g10);
+      border-color: var(--g20);
+      color: var(--g);
+      font-weight: 500;
+    }
+
+    .badge.bg-dim {
+      background: var(--bg);
+      border-color: var(--g20);
+      color: var(--ink);
+    }
+
+    .badge.bo {
+      background: var(--o10);
+      border-color: var(--o20);
+      color: var(--o);
+      font-weight: 500;
+    }
+
+    .badge.bo-dim {
+      background: var(--bg);
+      border-color: var(--o20);
+      color: var(--ink);
+    }
+
+    /* ── About (// comment style) ── */
+    .ab-block {
+      margin-bottom: 8px;
+    }
+
+    .ab-comment {
+      font-family: var(--fm);
+      font-size: 7.5pt;
+      color: var(--g);
+      margin-bottom: 2px;
+    }
+
+    .ab-line {
+      font-family: var(--fh);
+      font-size: 9pt;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .ab-sub {
+      font-size: 8.5pt;
+      color: var(--ink2);
+      line-height: 1.45;
+    }
+
+    /* ── Stats bar (main, trang 1) ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+      padding: 8px;
+      background: var(--bg);
+      border: 1px dashed var(--border);
+      border-radius: var(--r-sm);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat .sv {
+      font-family: var(--fm);
+      font-size: 13pt;
+      font-weight: 600;
+      color: var(--g);
+      line-height: 1.1;
+    }
+
+    .stat .sv.o {
+      color: var(--o);
+    }
+
+    .stat .sl {
+      font-size: 7pt;
+      color: var(--ink2);
+      margin-top: 3px;
+      line-height: 1.25;
+    }
+
+    /* ── Headline (main, trang 1) ── */
+    .headline {
+      font-size: 9.5pt;
+      color: var(--ink);
+      line-height: 1.55;
+      margin-bottom: 12px;
+      padding: 8px 10px;
+      background: var(--g10);
+      border-left: 3px solid var(--g);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    }
+
+    .headline strong {
+      color: var(--g);
+      font-weight: 600;
+    }
+
+    /* ── Project card ── */
+    .proj {
+      margin-bottom: 10px;
+      padding: 8px 10px;
+      background: var(--paper);
+      border: 1px solid var(--border2);
+      border-radius: var(--r-sm);
+      page-break-inside: avoid;
+    }
+
+    .proj-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 3px;
+    }
+
+    /* Cột trái (title + tagline): cho phép wrap, không đẩy period */
+    .proj-top>div:first-child {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .proj-period {
+      font-family: var(--fm);
+      font-size: 7.5pt;
+      color: var(--ink3);
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .proj-tags {
+      display: flex;
+      gap: 4px;
+    }
+
+    .btag {
+      font-family: var(--fm);
+      font-size: 7pt;
+      padding: 1px 6px;
+      background: var(--g10);
+      color: var(--g);
+      border-radius: 3px;
+    }
+
+    .btag.o {
+      background: var(--o10);
+      color: var(--o);
+    }
+
+    .proj h3 {
+      font-family: var(--fh);
+      font-size: 10.5pt;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 1px;
+    }
+
+    .proj-tagline {
+      font-size: 8.5pt;
+      color: var(--ink2);
+      font-style: italic;
+      margin-bottom: 3px;
+    }
+
+    .proj-desc {
+      font-size: 8.5pt;
+      color: var(--ink);
+      line-height: 1.5;
+      margin-bottom: 5px;
+    }
+
+    .proj-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 5px;
+      padding: 5px 7px;
+      background: var(--bg);
+      border-radius: 3px;
+    }
+
+    .proj-metric {
+      font-size: 7.5pt;
+      color: var(--ink2);
+    }
+
+    .proj-metric strong {
+      font-family: var(--fm);
+      font-weight: 600;
+      color: var(--g);
+      font-size: 8.5pt;
+    }
+
+    .proj-metric.o strong {
+      color: var(--o);
+    }
+
+    .proj-metric .sep {
+      color: var(--ink3);
+      margin-left: 2px;
+    }
+
+    /* ── Experience timeline (compact) ── */
+    .tl-item {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 9px;
+      page-break-inside: avoid;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 5px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--g);
+    }
+
+    .tl-item.o::before {
+      background: var(--o);
+    }
+
+    .tl-item::after {
+      content: '';
+      position: absolute;
+      left: 6.5px;
+      top: 14px;
+      bottom: -7px;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .tl-item:last-child::after {
+      display: none;
+    }
+
+    .tl-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 1px;
+    }
+
+    .tl-title {
+      font-family: var(--fh);
+      font-size: 10pt;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .tl-co {
+      font-size: 8.5pt;
+      color: var(--ink2);
+      margin-bottom: 3px;
+    }
+
+    .tl-period {
+      font-family: var(--fm);
+      font-size: 7.5pt;
+      color: var(--ink3);
+      white-space: nowrap;
+    }
+
+    .tl-ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .tl-ul li {
+      font-size: 8.5pt;
+      color: var(--ink);
+      line-height: 1.5;
+      padding-left: 10px;
+      position: relative;
+    }
+
+    .tl-ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--g);
+      font-size: 7pt;
+      top: 2px;
+    }
+
+    /* ── Footer link ── */
+    .footer {
+      margin-top: 10px;
+      padding-top: 6px;
+      border-top: 1px dashed var(--border);
+      font-family: var(--fm);
+      font-size: 7.5pt;
+      color: var(--ink3);
+      text-align: center;
+    }
+
+    .footer a {
+      color: var(--g);
+      text-decoration: none;
+    }
+
+    /* ── Learning ── */
+    .learning {
+      padding: 6px 8px;
+      background: var(--paper);
+      border: 1px dashed var(--border);
+      border-radius: var(--r-sm);
+    }
+
+    .learning .lc-head {
+      font-family: var(--fm);
+      font-size: 7.5pt;
+      color: var(--ink3);
+      margin-bottom: 4px;
+    }
+
+    /* ═══════════════ PRINT ═══════════════ */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+
+      html,
+      body {
+        background: #FFF;
+        margin: 0;
+        padding: 0;
+      }
+
+      .page {
+        margin: 0 !important;
+        box-shadow: none !important;
+        width: 210mm;
+        height: 297mm;
+        page-break-after: always;
+        page-break-inside: avoid;
+        break-after: page;
+        break-inside: avoid;
+        overflow: hidden;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* ── Screen helper bar (chỉ hiện khi xem màn hình) ── */
+    .helper {
+      max-width: 210mm;
+      margin: 14px auto 0;
+      padding: 10px 14px;
+      background: var(--ink);
+      color: #FFF;
+      font-family: var(--fm);
+      font-size: 9pt;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .helper b {
+      color: var(--g);
+    }
+
+    .helper button {
+      background: var(--g);
+      color: #FFF;
+      border: 0;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-family: var(--fm);
+      font-size: 9pt;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Helper bar — không in -->
+  <div class="helper no-print">
+    <span>📄 <b>CV PDF</b> · A4 · 2 trang · Nhấn <b>Ctrl+P</b> → <b>Save as PDF</b> · Margin: <b>None</b></span>
+    <button onclick="window.print()">⬇ In / Lưu PDF</button>
+  </div>
+
+  <!-- ═══════════════════════════ PAGE 1 ═══════════════════════════ -->
+  <div class="page">
+
+    <!-- ── SIDEBAR (trang 1) ── -->
+    <aside class="sidebar">
+      <img src="AVT.jpg" alt="Nguyễn Nhật Trường" class="avatar">
+
+      <div class="name-block">
+        <h1>Nguyễn Nhật Trường</h1>
+        <div class="role">AI Automation</div>
+        <div class="role-sub">Workflow Builder · Content Systems</div>
+      </div>
+
+      <!-- Contact .env style (inline gọn, value tự wrap nếu cần) -->
+      <div class="sec sb">
+        <div class="sec-label">contact</div>
+        <div class="contact">
+          <div class="row inline">
+            <span class="ck">LOCATION</span><span class="ceq">=</span><span class="cv">TP.HCM</span>
+          </div>
+          <div class="row inline">
+            <span class="ck">PHONE</span><span class="ceq">=</span><span class="cv">0379137483</span>
+          </div>
+          <div class="row inline">
+            <span class="ck">EMAIL</span><span class="ceq">=</span><span class="cv">truongnhat2905@gmail.com</span>
+          </div>
+          <div class="row inline">
+            <span class="ck">FACEBOOK</span><span class="ceq">=</span><span class="cv"><a
+                href="https://www.facebook.com/nguyentruong2905">fb.com/nguyentruong2905</a></span>
+          </div>
+          <div class="row inline" style="margin-top:3px">
+            <span class="ck">STATUS</span><span class="ceq">=</span><span class="cv status">●&nbsp;Sẵn sàng cho cơ hội
+              mới</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div class="sec sb">
+        <div class="sec-label">about</div>
+        <div class="ab-block">
+          <div class="ab-comment">// background</div>
+          <div class="ab-line">CNTT · ĐH TN & MT TP.HCM</div>
+          <div class="ab-sub">2018 — 2022</div>
+        </div>
+        <div class="ab-block">
+          <div class="ab-comment">// transition</div>
+          <div class="ab-line">3+ năm Video Editor</div>
+          <div class="ab-sub">→ 2025: AI Video </div>
+          <div class="ab-sub">→ 2026: AI Automation</div>
+        </div>
+        <div class="ab-block">
+          <div class="ab-comment">// working_style</div>
+          <div class="ab-sub">Tự học nhanh · Làm việc độc lập · Làm việc nhóm</div>
+        </div>
+      </div>
+
+      <!-- Tech stack -->
+      <div class="sec sb">
+        <div class="sec-label">tech-stack</div>
+        <div class="stack-group">
+          <div class="glabel">🤖 AI &amp; LLMs</div>
+          <div class="badges">
+            <span class="badge bg">Claude</span>
+            <span class="badge bg">Gemini</span>
+            <span class="badge bg">LM Studio</span>
+            <span class="badge bg-dim">Gemma 4</span>
+            <span class="badge bg-dim">Qwen 3</span>
+            <span class="badge">Ollama</span>
+          </div>
+        </div>
+
+        <div class="stack-group">
+          <div class="glabel">⚙️ Automation</div>
+          <div class="badges">
+            <span class="badge bg">n8n</span>
+            <span class="badge bg">CrewAI</span>
+            <span class="badge bg-dim">Gemini Gem</span>
+            <span class="badge">Make.com</span>
+            <span class="badge">Zapier</span>
+          </div>
+        </div>
+
+        <div class="stack-group">
+          <div class="glabel">🎬 Media</div>
+          <div class="badges">
+            <span class="badge bo-dim">Premiere Pro</span>
+            <span class="badge bo-dim">After Effects</span>
+            <span class="badge bo-dim">CapCut</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ── MAIN (trang 1) ── -->
+    <main class="main">
+
+      <!-- Headline -->
+      <div class="sec">
+        <div class="sec-label">01 · trigger · giới-thiệu</div>
+        <div class="headline">Chuyển hướng từ Video Editor sang AI Automation. Build workflow n8n xử lý 2,000+ bài
+          post, pipeline dịch video scale 1,000+ clip, và multi-agent system với CrewAI.</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="sec">
+        <div class="sec-label">02 · metrics · số-liệu</div>
+        <div class="stats">
+          <div class="stat">
+            <div class="sv">2,000+</div>
+            <div class="sl">Bài đăng tự động</div>
+          </div>
+          <div class="stat">
+            <div class="sv">1,000+</div>
+            <div class="sl">Video AI đã dịch</div>
+          </div>
+          <!-- <div class="stat">
+            <div class="sv o">14M</div>
+            <div class="sl">VND Affiliate</div>
+          </div> -->
+          <div class="stat">
+            <div class="sv o">120K+</div>
+            <div class="sl">Người theo dõi</div>
+          </div>
+          <div class="stat">
+            <div class="sv">4+</div>
+            <div class="sl">AI Agent đã build</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured Projects -->
+      <div class="sec">
+        <div class="sec-label">03 · execute · dự-án nổi bật</div>
+
+        <!-- P1 -->
+        <div class="proj">
+          <div class="proj-top">
+            <div>
+              <h3>Auto-Post Workflow</h3>
+              <div class="proj-tagline">Hệ thống đăng bài tự động cross-platform</div>
+            </div>
+            <span class="proj-period">2024 — Hiện tại</span>
+          </div>
+          <p class="proj-desc">Build và vận hành pipeline tự động đăng bài lên Facebook Fanpage và TikTok Shop, chạy
+            liên tục 24/7 từ 2024.</p>
+          <div class="proj-metrics">
+            <div class="proj-metric"><strong>2,000+</strong> bài post</div>
+            <div class="proj-metric"><strong>2+2</strong> FB + TikTok channels</div>
+            <div class="proj-metric"><strong>3 bài/ngày</strong> mỗi platform</div>
+            <div class="proj-metric"><strong>0</strong> thao tác thủ công</div>
+          </div>
+          <div class="badges">
+            <span class="badge bg">n8n</span>
+            <span class="badge bg-dim">Make.com</span>
+            <span class="badge">Facebook API</span>
+            <span class="badge">TikTok Node</span>
+          </div>
+        </div>
+
+        <!-- P2 -->
+        <div class="proj">
+          <div class="proj-top">
+            <div>
+              <h3>AI Video Translation Pipeline</h3>
+              <div class="proj-tagline">Dịch video sản phẩm cho ngành mỹ phẩm</div>
+            </div>
+            <span class="proj-period">2025 — Hiện tại</span>
+          </div>
+          <p class="proj-desc">Chương trình tự động transcribe + dịch + tạo voice-over cho video makeup tutorial, chạy
+            trên local LLM — tiết kiệm 100% chi phí API.</p>
+          <div class="proj-metrics">
+            <div class="proj-metric"><strong>1,000+</strong> video đã dịch</div>
+            <div class="proj-metric"><strong>80+/đêm</strong> throughput auto</div>
+            <div class="proj-metric"><strong>100%</strong> tiết kiệm API cost</div>
+            <div class="proj-metric"><strong>2-in-1</strong> phụ đề + voice-over</div>
+          </div>
+          <div class="badges">
+            <span class="badge bg">Whisper</span>
+            <span class="badge bg">LM Studio</span>
+            <span class="badge bg-dim">Gemma 4</span>
+            <span class="badge">FFmpeg</span>
+            <span class="badge">Python</span>
+          </div>
+        </div>
+
+        <!-- P3 -->
+        <div class="proj">
+          <div class="proj-top">
+            <div>
+              <h3>Multi-Agent Content System</h3>
+              <div class="proj-tagline">Hệ thống agent phối hợp viết content tự động</div>
+            </div>
+            <span class="proj-period">2026 — Hiện tại</span>
+          </div>
+          <p class="proj-desc">Multi-agent với Framework CrewAI — mỗi agent có role và LLM riêng (local cho QA, cloud
+            cho writing). Áp dụng vào quy trình sản xuất content tự động.</p>
+          <div class="proj-metrics">
+            <div class="proj-metric"><strong>3 agents</strong> Research · Script · Review</div>
+            <div class="proj-metric"><strong>2 LLMs</strong> Qwen 3 + Gemini 2.5 Pro</div>
+          </div>
+          <div class="badges">
+            <span class="badge bg">CrewAI</span>
+            <span class="badge bg-dim">Gemini 2.5 Pro</span>
+            <span class="badge bg-dim">Qwen 3</span>
+            <span class="badge">Python</span>
+          </div>
+        </div>
+
+        <!-- P4 -->
+        <div class="proj">
+          <div class="proj-top">
+            <div>
+              <h3>Cô Giấy System <span class="btag o" style="margin-left:4px">flagship</span></h3>
+              <div class="proj-tagline">Hệ thống sản xuất video dạy ngôn ngữ bằng AI</div>
+            </div>
+            <span class="proj-period">2026 — Hiện tại</span>
+          </div>
+          <p class="proj-desc">Thiết kế và xây dựng quy trình 4 bước: Tạo nội dung &amp; chia phân cảnh → Tạo prompt
+            assets/storyboard → Tạo image &amp; video → Ghép final bằng Remotion + subtitle.</p>
+          <div class="badges">
+            <span class="badge bg">n8n</span>
+            <span class="badge bg">Google Sheets</span>
+            <span class="badge bg-dim">Gemini 2.5 Pro</span>
+            <span class="badge bg-dim">Veo 3</span>
+            <span class="badge bo-dim">Remotion</span>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ═══════════════════════════ PAGE 2 ═══════════════════════════ -->
+  <div class="page">
+
+    <!-- ── SIDEBAR (trang 2) ── -->
+    <aside class="sidebar">
+
+      <div class="sec sb">
+        <div class="sec-label">profile</div>
+        <div style="font-family:var(--fh);font-weight:600;font-size:11pt;color:var(--ink);line-height:1.2">Nguyễn Nhật
+          Trường</div>
+        <div style="font-family:var(--fm);font-size:8pt;color:var(--g);margin-top:2px">AI Automation</div>
+      </div>
+
+      <!-- Highlights (commented out) -->
+      <!-- <div class="sec sb">
+        <div class="sec-label">highlights</div>
+
+        <div class="ab-block">
+          <div class="ab-comment">// scale</div>
+          <div class="ab-sub">Production scale thật: 2,000+ bài post, 1,000+ video đã dịch — không phải toy project.
+          </div>
+        </div>
+
+        <div class="ab-block">
+          <div class="ab-comment">// stack</div>
+          <div class="ab-sub">Full automation stack: workflow (n8n) → multi-agent (CrewAI) → local LLM (Ollama).</div>
+        </div>
+
+        <div class="ab-block">
+          <div class="ab-comment">// outcome</div>
+          <div class="ab-sub">Business outcome mindset: 14M VND GMV affiliate thật, không chỉ tech-for-tech.</div>
+        </div>
+
+        <div class="ab-block">
+          <div class="ab-comment">// initiative</div>
+          <div class="ab-sub">Tự khởi xướng AI transformation cho content team tại HV Holdings Global.</div>
+        </div>
+      </div> -->
+
+      <!-- Education -->
+      <div class="sec sb">
+        <div class="sec-label">education</div>
+        <div class="ab-block">
+          <div class="ab-line">ĐH TN & MT TP.HCM</div>
+          <div class="ab-sub">Công nghệ Thông tin · 2018 — 2022</div>
+          <!-- <div class="ab-sub" style="margin-top:3px;color:var(--g);font-family:var(--fm);font-size:7.5pt">Luận văn AR ·
+            9.0/10 · Học bổng cuối kỳ</div> -->
+        </div>
+      </div>
+
+      <!-- Languages -->
+      <!-- <div class="sec sb">
+        <div class="sec-label">languages</div>
+        <div style="font-family:var(--fm);font-size:8pt;line-height:1.7">
+          <div><span style="color:var(--g)">VIETNAMESE</span> <span style="color:var(--ink3)">=</span> native</div>
+          <div><span style="color:var(--g)">ENGLISH</span> <span style="color:var(--ink3)">=</span> reading · technical
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Learning -->
+      <div class="sec sb">
+        <div class="sec-label">wip · đang học</div>
+        <div class="learning">
+          <div class="lc-head">// learning.wip</div>
+          <div class="badges">
+            <span class="badge bg-dim">RAG</span>
+            <span class="badge bg-dim">Vector DB</span>
+            <span class="badge bg-dim">Agentic AI</span>
+            <span class="badge">Obsidian</span>
+            <span class="badge">Claude Code</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Online -->
+      <div class="sec sb">
+        <div class="sec-label">online</div>
+        <div class="contact">
+          <div class="row inline">
+            <span class="ck">WEB</span><span class="ceq">=</span><span class="cv"><a
+                href="https://truongnhat2905.github.io/portfolio/">Portfolio</a></span>
+          </div>
+          <div class="row inline">
+            <span class="ck">FB</span><span class="ceq">=</span><span class="cv"><a
+                href="https://www.facebook.com/nguyentruong2905">nguyentruong2905</a></span>
+          </div>
+          <div class="row inline">
+            <span class="ck">EMAIL</span><span class="ceq">=</span><span class="cv">truongnhat2905@gmail.com</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ── MAIN (trang 2) ── -->
+    <main class="main">
+
+      <!-- Project tiếp tục -->
+      <div class="sec">
+        <div class="sec-label">03 · execute · dự-án (tiếp)</div>
+
+        <!-- P5 -->
+        <div class="proj">
+          <div class="proj-top">
+            <div>
+              <h3>Ads Policy Compliance Agent</h3>
+              <div class="proj-tagline">AI kiểm tra kịch bản quảng cáo trước khi giao editor</div>
+            </div>
+            <span class="proj-period">2026 — Hiện tại</span>
+          </div>
+          <p class="proj-desc">Agent tự động phát hiện vi phạm chính sách quảng cáo, đề xuất sửa — tích hợp trực tiếp
+            vào workflow team. Đã chạy thực tế tại doanh nghiệp.</p>
+          <div class="proj-metrics">
+            <div class="proj-metric"><strong>✅ / ❌</strong> Duyệt/ Không</div>
+            <div class="proj-metric"><strong>-</strong> Đã dùng thực tế tại doanh nghiệp</div>
+          </div>
+          <div class="badges">
+            <span class="badge bg">n8n</span>
+            <span class="badge bg-dim">Gemini Gem</span>
+            <span class="badge">Policy KB</span>
+          </div>
+        </div>
+
+        <!-- P6 -->
+        <!-- <div class="proj">
+          <div class="proj-top">
+            <div>
+              <h3>Affiliate Solo</h3>
+              <div class="proj-tagline">Vận hành solo 4 channel — toàn bộ pipeline tự build bằng AI</div>
+            </div>
+            <span class="proj-period">10/2025 — Hiện tại</span>
+          </div>
+          <p class="proj-desc">Vận hành 2 Facebook Reels page + 2 TikTok affiliate channel ngành gia dụng. Toàn bộ
+            content pipeline (nội dung → đăng bài) dùng AI automation tự build.</p>
+          <div class="proj-metrics">
+            <div class="proj-metric o"><strong>14M VND</strong> tổng hoa hồng</div>
+            <div class="proj-metric o"><strong>120K+</strong> followers FB Reels</div>
+            <div class="proj-metric"><strong>4 kênh</strong> 2 FB + 2 TikTok</div>
+            <div class="proj-metric"><strong>Solo</strong> 100% automation-driven</div>
+          </div>
+          <div class="badges">
+            <span class="badge bg-dim">TikTok Shop</span>
+            <span class="badge">Shopee Affiliate</span>
+          </div>
+        </div>
+      </div> -->
+
+        <!-- Experience -->
+        <div class="sec">
+          <div class="sec-label">04 · history · kinh-nghiệm</div>
+
+          <div class="tl-item">
+            <div class="tl-row">
+              <div>
+                <div class="tl-title">AI Video / Automation</div>
+                <div class="tl-co">HV HOLDINGS GLOBAL · BU Faca · TP.HCM</div>
+              </div>
+              <span class="tl-period">08/2025 — Hiện tại</span>
+            </div>
+            <ul class="tl-ul">
+              <li>Nghiên cứu các AI về video / hình ảnh, ứng dụng vào sản xuất.</li>
+              <li>Sản xuất video AI về sản phẩm để chạy quảng cáo cho ngành mỹ phẩm.</li>
+              <li>Xây dựng các workflow automation (n8n + Make.com) cho team.</li>
+            </ul>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-row">
+              <div>
+                <div class="tl-title">Video Editor</div>
+                <div class="tl-co">HV HOLDINGS GLOBAL · BU Faca · TP.HCM</div>
+              </div>
+              <span class="tl-period">05/2023 — 08/2025</span>
+            </div>
+            <ul class="tl-ul">
+              <li>Sản xuất video chạy quảng cáo cho các sản phẩm mỹ phẩm.</li>
+              <li>Lên kế hoạch, đi tiền trạm, chuẩn bị thiết bị để quay diễn viên.</li>
+            </ul>
+          </div>
+
+          <!-- <div class="tl-item o">
+            <div class="tl-row">
+              <div>
+                <div class="tl-title">Affiliate Solo Operator</div>
+                <div class="tl-co">Shopee Affiliate + TikTok Shop · ngành gia dụng</div>
+              </div>
+              <span class="tl-period">10/2025 — Hiện tại</span>
+            </div>
+            <ul class="tl-ul">
+              <li>Xây dựng hệ thống nội dung + tự động hóa đăng bài, vận hành solo.</li>
+              <li>14M VND GMV · 120K+ followers · 4 channels active.</li>
+            </ul>
+          </div> -->
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <a href="https://truongnhat2905.github.io/portfolio/">↗ Xem portfolio đầy đủ tại
+            truongnhat2905.github.io/portfolio</a>
+          <p>CV v2026 · cập nhật 04/2026 </p>
+        </div>
+
+    </main>
+
+  </div>
+
+</body>
+
+</html>
